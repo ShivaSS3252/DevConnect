@@ -43,6 +43,19 @@ app.get("/admin/getdata", (req, res) => {
 app.get("/admin/deletedata", (req, res) => {
   res.send("Deleted data ");
 });
+//Error handling
+
+app.get("/getuser", (req, res) => {
+  //we can handle using try and catch
+  throw new Error("sdhjdsf");
+  res.send("user data sent");
+});
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    res.status(500).send("something went wrong");
+  }
+});
+
 app.listen(3000, () => {
   console.log("server is succefully listening");
 });
