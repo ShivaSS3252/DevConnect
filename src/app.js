@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const { adminauth, userauth } = require("./middlewares/auth");
+
 //this will only handle GET call to /user
 
 app.get("/user/:userid", (req, res) => {
@@ -30,6 +32,17 @@ app.use("/test", (req, res) => {
   res.send("Hello from the test");
 });
 
+//middlewares main code
+app.use("/admin", adminauth);
+app.get("/user", userauth, (req, res) => {
+  res.send("user data sent");
+});
+app.get("/admin/getdata", (req, res) => {
+  res.send("all data sent");
+});
+app.get("/admin/deletedata", (req, res) => {
+  res.send("Deleted data ");
+});
 app.listen(3000, () => {
   console.log("server is succefully listening");
 });
