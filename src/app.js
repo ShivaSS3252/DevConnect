@@ -1,9 +1,16 @@
+const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
-
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Your front-end URL
+    credentials: true, // Allow cookies and credentials
+  })
+);
 app.use(express.json());
+
 app.use(cookieParser());
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
