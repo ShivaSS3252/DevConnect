@@ -24,7 +24,12 @@ const validateEditProfileData = (req) => {
   const isEditAllowed = Object.keys(req.body).every((field) =>
     allowedEditFields.includes(field)
   );
-
+  if (
+    req.body.gender &&
+    !["male", "female", "others"].includes(req.body.gender.toLowerCase())
+  ) {
+    throw new Error("Gender should be either 'male', 'female', or 'others'");
+  }
   return isEditAllowed;
 };
 module.exports = {

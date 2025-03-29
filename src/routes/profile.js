@@ -8,7 +8,7 @@ profileRouter.get("/profile/view", userauth, async (req, res) => {
     const user = req.user;
     res.send(user);
   } catch (err) {
-    res.status(400).send("error saving the user" + err.message);
+    res.status(400).send(err.message);
   }
 });
 
@@ -26,9 +26,8 @@ profileRouter.post("/profile/edit", userauth, async (req, res) => {
       message: `${Loggedinuser.firstName}, your profile updated successfuly`,
       data: Loggedinuser,
     });
-    console.log(Loggedinuser);
   } catch (err) {
-    res.status(400).send("error saving the user" + err.message);
+    res.status(400).send(err.message);
   }
 });
 module.exports = profileRouter;
