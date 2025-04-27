@@ -15,6 +15,11 @@ authRouter.post("/signup", async (req, res) => {
   try {
     //validation of data
     validateSignUpData(req);
+    const existingUser = await User.findOne({ emailId: req.body.emailId });
+    if (existingUser) {
+      return res.status(400).json("Email already registered!");
+    }
+
     //Encrypt the password
     const { firstName, lastName, emailId, password } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
