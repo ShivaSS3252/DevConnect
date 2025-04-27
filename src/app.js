@@ -20,10 +20,17 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
+app.get("/hello", (req, res) => {
+  res.send("Hello from the backend!");
+});
+
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
+
+const path = require("path");
+app.use(express.static(path.join(__dirname, "dist")));
 
 connectDB()
   .then(() => {
