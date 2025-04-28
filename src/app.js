@@ -7,23 +7,10 @@ const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-// Check if we are in production or development
-const allowedOrigins = [
-  "http://localhost:5173", // For local development
-  "https://devconnect-web-as4r.onrender.com", // For deployed frontend
-];
-
 // Use dynamic CORS configuration
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin) || !origin) {
-        // Allow requests with no origin (like mobile apps)
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://devconnect-web-as4r.onrender.com",
     credentials: true, // Allow sending cookies
     methods: ["GET", "POST", "PUT", "DELETE"], // Explicitly allow methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
