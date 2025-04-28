@@ -8,25 +8,18 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 // Use dynamic CORS configuration
-app.use(
-  cors({
-    origin: "https://devconnect-web-as4r.onrender.com",
-    credentials: true, // Allow sending cookies
-    methods: ["GET", "POST", "PUT", "DELETE"], // Explicitly allow methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
-  })
-);
-
 app.use(express.json());
+const corsOptions = {
+  origin: "https://devconnect-web-as4r.onrender.com", // Update with your frontend URL
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
+app.use(cors(corsOptions));
 
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
-
-app.get("/hello", (req, res) => {
-  res.send("Hello from the backend!");
-});
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
