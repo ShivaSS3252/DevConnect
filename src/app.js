@@ -2,6 +2,7 @@ const cors = require("cors");
 const express = require("express");
 const connectDB = require("./config/database");
 require("dotenv").config();
+const PORT = process.env.PORT || 3000;
 const app = express();
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -9,7 +10,7 @@ app.use(cookieParser());
 // Check if we are in production or development
 const allowedOrigins = [
   "http://localhost:5173", // For local development
-  "https://devconnect-web-44b4.onrender.com", // For deployed frontend
+  "https://devconnect-web-as4r.onrender.com", // For deployed frontend
 ];
 
 // Use dynamic CORS configuration
@@ -51,7 +52,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 connectDB()
   .then(() => {
     console.log("Database connection successful");
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log("server is successfully listening");
     });
   })
