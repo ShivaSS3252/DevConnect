@@ -36,8 +36,12 @@ authRouter.post("/signup", async (req, res) => {
     const token = await savedUser.getJWT();
     //Add the token to cookie and send the response back to user
     res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // this is important for HTTPS domains like Render
+      sameSite: "None", // this allows cross-site cookies (frontend on a different domain)
       expires: new Date(Date.now() + 8 * 3600000),
     });
+
     res.json({ message: "User Added Successfully", data: savedUser });
   } catch (err) {
     res.status(400).send(err.message);
@@ -57,8 +61,12 @@ authRouter.post("/login", async (req, res) => {
       const token = await user.getJWT();
       //Add the token to cookie and send the response back to user
       res.cookie("token", token, {
+        httpOnly: true,
+        secure: true, // this is important for HTTPS domains like Render
+        sameSite: "None", // this allows cross-site cookies (frontend on a different domain)
         expires: new Date(Date.now() + 8 * 3600000),
       });
+
       res.send(user);
     } else {
       throw new Error("Invalid Credentials");
