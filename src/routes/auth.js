@@ -75,13 +75,14 @@ authRouter.post("/login", async (req, res) => {
     res.status(400).send(err.message);
   }
 });
+
 authRouter.post("/logout", async (req, res) => {
-  res.cookie("token", token, {
+  res.clearCookie("token", {
     httpOnly: true,
-    secure: true, // this is important for HTTPS domains like Render
-    sameSite: "None", // this allows cross-site cookies (frontend on a different domain)
-    expires: new Date(Date.now()),
+    secure: true,
+    sameSite: "None",
   });
   res.send("Logout Successful");
 });
+
 module.exports = authRouter;
