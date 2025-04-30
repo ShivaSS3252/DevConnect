@@ -29,9 +29,11 @@ app.use("/", requestRouter);
 app.use("/", userRouter);
 
 // Serve frontend build
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "..", "dist"))); // Use ".." to go up one level
+
+// Serve index.html for SPA
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
 });
 
 // Connect DB and start server
